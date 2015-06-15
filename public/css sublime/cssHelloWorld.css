@@ -1,0 +1,61 @@
+h1 {
+  display: block;
+  font-size: 2em;
+  -webkit-margin-before: 0.67em;
+  -webkit-margin-after: 0.67em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold;
+}
+#top {
+  background-color: #84c754;
+  color: #ffffff;
+  padding: 10px;
+}
+
+body {
+  font: 100% Lucida Sans;
+  margin: 20px;
+  line-height: 26px;
+}
+ul {
+	display: block;
+	list-style-type: disc;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 40px;
+}
+#poems {
+  width: 200px;
+  float: left;
+}
+p {
+  display: block;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+#sidebar {
+  background-color: #32a4e7;
+  color: #ffffff;
+  padding: 10px;
+  width: 180px;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  position: absolute;
+}
+#top, #sidebar, #bottom {
+  border-radius: 4px;
+  margin: 4px;
+}
+#center {
+  padding: 10px;
+  margin: 0 210px;
+}
+div {
+  display: block;
+}
