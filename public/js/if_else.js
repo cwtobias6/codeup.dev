@@ -9,22 +9,17 @@ var favorite = 'blue'; // TODO: change this to your favorite color from the list
 
 if(color === "red") {	
 	console.log("red")
-};
-	else if (color === "orange") {
-		console.log("orange")
-	};
-	else if (color === "yellow") {
-		console.log("yellow")
-	};
-	else if (color === "green") {
-		console.log("green")
-	};
-	else if (color === "blue") {
-		console.log("blue")
-	};
-		else{
-			console.log("the computer selected indigo or violet")
-		};
+} else if (color === "orange") {
+	console.log("orange")
+} else if (color === "yellow") {
+	console.log("yellow")
+} else if (color === "green") {
+	console.log("green")
+} else if (color === "blue") {
+	console.log("blue")
+} else {
+	console.log("the computer selected indigo or violet")
+}
 
 
 // TODO: When a color is encountered log a message that tells the color, and an object of that color.
