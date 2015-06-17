@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Interaction</title>
+</head>
+<body>
+
+	<h1>User Interaction</h1>
+
+	<script type="text/javascript">
+
+	// todo: Ask the user for their name.
+
+	var userAnswer; 
+
+//       Keep asking if an empty input is provided.
+	do {
+		userAnswer = prompt ("What's your name??");
+	} while(!userAnswer);
+// todo: Show an alert message that welcomes the user based on their input.
+		alert("Welcome " + userAnswer + "!!!");
+// todo: Ask the user if they like pizza.
+//       Based on their answer show a creative alert message.
+	var response = prompt("Do you like pizza??" + "(yes or no?)")
+	if (response === "yes") {
+		alert("Cheese or pepperoni lol?");
+		confirm("You're buying right?? lol");
+	} else { 
+		alert("Me neither!!! ");
+		alert("SIKE!!!");
+	}
+
+
+/* var quest;
+do {
+	quest = prompt("blawwwwww");
+} while(!quest);*/
+
+
+
+	</script>
+
+
+
+
+</body>
+</html>
