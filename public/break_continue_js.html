@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Break/Continue Practice</title>
+</head>
+<body>
+
+
+	<script>
+
+		var random = Math.floor((Math.random()*50)+1);
+
+		while(random % 2 === 0) {
+			random = Math.floor((Math.random()*50)+1);
+		}
+		console.log(random);
+
+		for(var i = 1; i <= 50; i++) {
+
+			if(i % 2 === 0) {
+				continue;
+			}
+
+			if (random === i) {
+				console.log("Yikes skipping this number " + random);
+			} else {
+				console.log ("Here is an odd number " + i);
+			}
+		}
+
+
+	</script>
+
+
+</body>
+</html>
