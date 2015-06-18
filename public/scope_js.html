@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scope!!</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+	(function(){
+
+	var myNameIs = 'Slim Shady';
+
+
+	var sayHello = function(name) {
+		console.log("Hello " + name + "!");
+	}
+
+	sayHello(myNameIs);
+
+	var random = Math.floor((Math.random()*100)+1);
+
+	
+
+
+	function isOdd(number) {
+		 console.log(((number % 2) !== 0) ? "Your number is " + number + " and it is ODD!" : "Your number is " + number + " and it is EVEN!!");
+		
+	}
+
+	isOdd(random);})();
+
+
+
+	</script>
+
+
+
+</body>
+</html>
+
+
+
+
+
