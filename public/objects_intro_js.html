@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Objects Intro</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+/*var person = new Object;
+	this.firstName = "Christian";
+	this.lastName = "Tobias";
+
+
+person.sayHello = function() {
+	alert("Hello " + this.firstName + " " + this.lastName + ".");
+}
+
+person.sayHello();*/
+
+
+function person(firstName,lastName) {
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.sayHello = function() {
+		alert("Hello " + this.firstName + " " + this.lastName + "." );
+	};
+}
+
+var me = new person("Christian", "Tobias");
+var mikey = new person("Michael", "Thompson");
+var scott = new person("Scott", "Stirrett");
+
+me.sayHello();
+mikey.sayHello();
+scott.sayHello();
+
+
+	</script>
+
+
+
+</body>
+</html>
