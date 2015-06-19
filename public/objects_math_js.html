@@ -10,17 +10,17 @@
 // create a circle object
 var circle = {
     radius: 3,
-    getArea: function (radius) {
+    getArea: function () {
         var area = Math.PI * Math.pow(this.radius,2);
         return area; 
     },
     logInfo: function (round) {
         // todo: complete this method. if round is true, round the result to the nearest integer.
-        if(round === true) {
-        	var rounded = Math.round(this.getArea(this.radius));
+        if(round) {
+        	var rounded = Math.round(this.getArea());
         	console.log('Area of a circle with radius: ' + this.radius + ', is: ' + rounded);
         } else {
-        	console.log('Area of a circle with radius: ' + this.radius + ', is: ' + this.getArea(this.radius));
+        	console.log('Area of a circle with radius: ' + this.radius + ', is: ' + this.getArea());
         }
         
     }
