@@ -38,39 +38,25 @@
 		<li>Bacon</li>
 	</ol>
 </div>
-
-
-
-
-
-
-
+<p>HELLO WORLD!!</p>
 
 
 <script src="/js/jquery.js"></script>
 <script>
 
-// $(document).ready(function() {
-// 	alert("The DOM Finished Loading!!!");
-// });
-
-// $(document).ready(function() {
-// 	var contents = $("#quote");
-// 	alert(contents.text());
-// 	console.log(contents.text());
-// });
 
 $(document).ready(function() { 
-			$(".important").css("border", "3px dashed green");
-            $('.codeup').css("border", "1px solid red");
-            $("body").css("font-family","arial");
-            $("li").css("font-size", "20px");
-            $("h1,p,li").css( {
-            	"background-color": "yellow",
-    			"color": "salmon"});
-            var contents = $("h1");
-            alert(contents.text());
-        });
+		        $("h1").click(function(){
+		        	$(this).css("background-color", "blue");
+		        })
+		        $("p").dblclick(function(){
+		        	$(this).css("font-size", "18px");
+		        })
+		        $("li").hover(function(){
+		        	$(this).css("color","red")},
+		        	function(){
+		        	$(this).css("color","blue")});
+        	});
 
 </script>
 </body>
