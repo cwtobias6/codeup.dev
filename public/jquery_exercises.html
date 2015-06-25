@@ -62,10 +62,14 @@
 
 $(document).ready(function() { 
 			$(".important").css("border", "3px dashed green");
-});
-
-$(document).ready(function() {
             $('.codeup').css("border", "1px solid red");
+            $("body").css("font-family","arial");
+            $("li").css("font-size", "20px");
+            $("h1,p,li").css( {
+            	"background-color": "yellow",
+    			"color": "salmon"});
+            var contents = $("h1");
+            alert(contents.text());
         });
 
 </script>
