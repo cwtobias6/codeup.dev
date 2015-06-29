@@ -69,7 +69,7 @@
 			$(document).ready(function() {
 			    $('#clickyLink').click(function(event) {
 			        event.preventDefault();
-			        $("dd").fadeToggle();
+			        $("dd").slideToggle();
 			    });
 
 				$("ul").each(function(){
@@ -78,11 +78,13 @@
 
 				$("li").each(function(){
 					$(this).parent().click(function() {
-			        	$(this).fadeOut("slow");
+			        	$(this).slideUp("slow",function() {
+			        		$(this).css("color", "blue");
+			        	});
 			    	});
 				});
 				$("h3").click(function(){
-					$(this).next("ul").fadeToggle("slow");
+					$(this).next("ul").slideToggle("slow");
 				});
 				
 			});
