@@ -69,7 +69,7 @@
 			$(document).ready(function() {
 			    $('#clickyLink').click(function(event) {
 			        event.preventDefault();
-			        $("dd").toggleClass('invisible');
+			        $("dd").fadeToggle();
 			    });
 
 				$("ul").each(function(){
@@ -77,10 +77,14 @@
 				});
 
 				$("li").each(function(){
-					$(this).parent().click(function(event) {
-			        	$(this).css("display","none");
+					$(this).parent().click(function() {
+			        	$(this).fadeOut("slow");
 			    	});
 				});
+				$("h3").click(function(){
+					$(this).next("ul").fadeToggle("slow");
+				});
+				
 			});
 
 
