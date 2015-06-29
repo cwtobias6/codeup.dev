@@ -72,11 +72,11 @@
 			        $("dd").toggleClass('invisible');
 			    });
 
-				$("ul").each(function(index){
+				$("ul").each(function(){
 					$(this).children().first().css("font-weight", "bold");
 				});
 
-				$("li").each(function(index){
+				$("li").each(function(){
 					$(this).parent().click(function(event) {
 			        	$(this).css("display","none");
 			    	});
