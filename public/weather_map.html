@@ -1,0 +1,242 @@
+<DOCTYPE html>
+<html>
+<head>
+	<title>Weather API</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style type="text/css">
+
+#surfSide {
+    width: 500px;
+    height: 300px;
+
+  }
+body {
+	width: 100%;
+}
+#contaner {
+	width:75%;
+}
+
+</style>
+</head>
+<body>
+
+<div id="container">
+	<div id="header">
+		<h1>Today's Weather</h1>
+	</div>
+	<div>
+		<h2>San Antonio:</h2>
+		<p id="Current"></p>
+	</div>
+		<h2>3 Day Forecast</h2>
+		<div class="row">
+			<div class="col-md-4 panel" id="forecast"></div>
+			<div class="col-md-4 panel" id="forecast2"></div>
+			<div class="col-md-4 panel" id="forecast3"></div>
+		</div>
+	<div id="map-canvas"></div>
+  	<div id="surfSide"></div>
+</div>
+
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASFExDTpna-8axHirsW-qKxNKDoUA6qPE"></script>
+
+
+	<script>
+
+	//Current Conditions
+		var ajaxRequest = $.get("http://api.openweathermap.org/data/2.5/weather", {
+							    APPID: "f454e9e855a5ca5952981370098a62e8",
+							    q:     "San Antonio, TX",
+							    units: "imperial"
+							});
+
+		ajaxRequest.always(function() {
+			console.log("The ajaxRequest was sent!");
+		});
+
+		ajaxRequest.fail(function(data,error){
+			console.log(error);
+			console.log(ajaxRequest.status);
+		});
+
+		ajaxRequest.done(function(data){
+			console.log(data);
+			console.log(Current(data));
+		});
+
+		var Current = function(data) {
+			var temps = "<p>" + "Temperature: " + data.main.temp_max + "F" + " / " + data.main.temp_min + "F" + "</p>";
+			var image = "<p>" + "<img src= http://openweathermap.org/img/w/" + data.weather[0].icon + ".png></p>";
+			var clouds = "<p>" + "Clouds: " + data.weather[0].description + "</p>";
+			var humidity = "<p>" + "Humidity: " + data.main.humidity + "</p>";
+			var wind = "<p>" + "Wind: " + data.wind.gust + "</p>";
+			var pressure = "<p>" + "Pressure: " + data.main.pressure + "</p>";
+
+			var htmlString = temps + image + clouds + humidity + wind + pressure;
+
+			return $("#Current").append(htmlString);
+
+		}
+
+
+
+
+
+
+
+
+
+
+//3 day forecast
+		var ajaxRequestForecast = $.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
+							    APPID: "f454e9e855a5ca5952981370098a62e8",
+							    q:     "San Antonio, TX",
+							    units: "imperial",
+							    cnt: 3
+							});
+
+		ajaxRequestForecast.always(function() {
+			console.log("The ajaxRequest was sent!");
+		});
+
+		ajaxRequestForecast.fail(function(data,error){
+			console.log(error);
+			console.log(ajaxRequestForecast.status);
+		});
+
+		ajaxRequestForecast.done(function(data){
+			console.log(data);
+			forecast(data);
+		});
+		
+		var forecast = function(data) {
+			for(var i = 0; i < data.list.length; i++) {
+				var temps = "<p>" + "Temperature: " + data.list[i].temp.max + "F" + " / " + data.list[i].temp.min + "F" + "</p>";
+				var image = "<p>" + "<img src= http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png></p>";
+				var clouds = "<p>" + "Clouds: " + data.list[i].weather[0].description + "</p>";
+				var humidity = "<p>" + "Humidity: " + data.list[i].humidity + "</p>";
+				var wind = "<p>" + "Wind: " + data.list[i].speed + "</p>";
+				var pressure = "<p>" + "Pressure: " + data.list[i].pressure + "</p>";
+
+				var htmlString = temps + image + clouds + humidity + wind + pressure + "<br>";
+				if(i === 0) {
+				$("#forecast").append(htmlString);
+				} else if (i === 1) {
+					$("#forecast2").append(htmlString);
+				} else {
+					$("#forecast3").append(htmlString);
+				}
+			}
+		}
+
+var address = 'San Antonio, TX 78212';
+
+// Init geocoder object
+var geocoder = new google.maps.Geocoder();
+
+// Geocode our address
+geocoder.geocode( { 'address': address}, function(results, status) {
+  // Check for a successful result
+  if (status == google.maps.GeocoderStatus.OK) {
+    // Set our map options
+    var mapOptions = {
+      // Set the zoom level
+      zoom: 10,
+      // This sets the center of the map at our location
+      center: results[0].geometry.location
+
+    }
+
+
+    // Render the map
+    var map = new google.maps.Map(document.getElementById("surfSide"), mapOptions);
+  } else {
+    // Show an error message with the status if our request fails
+    alert("Geocoding was not successful - STATUS: " + status);
+  }
+  var marker = new google.maps.Marker({
+      position: results[0].geometry.location,
+      map: map,
+      draggable: true
+      });
+
+
+  var infowindow = new google.maps.InfoWindow({
+        content: "What is the weather like?"
+    });
+    infowindow.open(map,marker);
+
+  // function markerCoords(markerobject){
+	google.maps.event.addListener(marker, 'dragend', function(evt){
+		console.log("done");
+		var ajaxRequestForecast = $.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
+							    APPID: "f454e9e855a5ca5952981370098a62e8",
+							    lat: this.getPosition().lat(),
+							    lon: this.getPosition().lng(),
+							    units: "imperial",
+							    cnt: 3
+							});
+
+		ajaxRequestForecast.always(function() {
+			console.log("The ajaxRequest was sent!");
+		});
+
+		ajaxRequestForecast.fail(function(data,error){
+			console.log(error);
+			console.log(ajaxRequestForecast.status);
+		});
+
+		ajaxRequestForecast.done(function(data){
+			console.log(data);
+			forecast(data);
+		});
+		
+		var forecast = function(data) {
+			for(var i = 0; i < data.list.length; i++) {
+				var temps = "<p>" + "Temperature: " + data.list[i].temp.max + "F" + " / " + data.list[i].temp.min + "F" + "</p>";
+				var image = "<p>" + "<img src= http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png></p>";
+				var clouds = "<p>" + "Clouds: " + data.list[i].weather[0].description + "</p>";
+				var humidity = "<p>" + "Humidity: " + data.list[i].humidity + "</p>";
+				var wind = "<p>" + "Wind: " + data.list[i].speed + "</p>";
+				var pressure = "<p>" + "Pressure: " + data.list[i].pressure + "</p>";
+
+				var htmlString = temps + image + clouds + humidity + wind + pressure + "<br>";
+				if(i === 0) {
+				$("#forecast").html(htmlString);
+				} else if (i === 1) {
+					$("#forecast2").html(htmlString);
+				} else {
+					$("#forecast3").html(htmlString);
+				}
+			}
+		}
+
+		var infoWindow = new google.maps.InfoWindow({
+	        content: '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>'
+    	});
+    	infoWindow.open(map, marker);
+    	forecast()
+});
+
+// google.maps.event.addListener(marker, 'drag', function(evt){
+//     console.log("marker is being dragged");
+// }); 
+// }
+// markerCoords(marker);
+
+
+
+
+
+    // Open the window using our map and marker
+
+});
+
+
+	</script>
+	
+
+</body>
+</html>
