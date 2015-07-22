@@ -1,6 +1,7 @@
 <?php 
 
-$counter = isset($_GET['count'] ? $_GET['count'] : '');
+$counter = empty($_GET['count'] ? $_GET['count'] : '');
+
 
 
 
