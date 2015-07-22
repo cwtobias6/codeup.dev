@@ -13,7 +13,7 @@
 		</head>	
 
 		<body>
-			<form method="POST" action="/my_first_form.php">
+			<form method="GET" action="/my_first_form.php">
     			<p>
         			<label for="name">Username</label>
         			<input id="username" name="username" type="text" placeholder="Enter Username" autofocus>

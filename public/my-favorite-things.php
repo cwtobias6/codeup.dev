@@ -1,6 +1,18 @@
 <?php
 
-$things = ["Music", "Track", "Literature", "Poetry", "Coding"];
+
+function pageController()
+{
+    
+	$things = ["Music", "Track", "Literature", "Poetry", "Coding"];
+    $data = [];
+
+    $data['mystuff'] = $things;
+
+    return $data;    
+}
+
+extract(pageController());
 
 ?>
 
@@ -53,11 +65,11 @@ $things = ["Music", "Track", "Literature", "Poetry", "Coding"];
 	<div>
 	<h1>THESE ARE A FEW OF MY FAVORITE THINGS...</h1>
 		<table>
-			<?php foreach($things as $item) { ?>
+			<?php foreach($mystuff as $item): ?>
 			<tr>
-					<td><?php echo "$item"; ?></td>
+					<td><?= $item; ?></td>
 			</tr>
-			<?php } ?>
+			<?endforeach;?>
 	</table>
 	<div>
 </body>

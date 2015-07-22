@@ -107,11 +107,6 @@ body {
 		});
 
 		ajaxRequestForecast.done(function(data){
-			console.log(data);
-			forecast(data);
-		});
-		
-		var forecast = function(data) {
 			for(var i = 0; i < data.list.length; i++) {
 				var temps = "<p>" + "Temperature: " + data.list[i].temp.max + "F" + " / " + data.list[i].temp.min + "F" + "</p>";
 				var image = "<p>" + "<img src= http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png></p>";
@@ -129,7 +124,7 @@ body {
 					$("#forecast3").append(htmlString);
 				}
 			}
-		}
+		});
 
 var address = 'San Antonio, TX 78212';
 
@@ -190,10 +185,9 @@ geocoder.geocode( { 'address': address}, function(results, status) {
 
 		ajaxRequestForecast.done(function(data){
 			console.log(data);
-			forecast(data);
-		});
-		
-		var forecast = function(data) {
+			// forecast(data);
+
+			// console.log(data);
 			for(var i = 0; i < data.list.length; i++) {
 				var temps = "<p>" + "Temperature: " + data.list[i].temp.max + "F" + " / " + data.list[i].temp.min + "F" + "</p>";
 				var image = "<p>" + "<img src= http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png></p>";
@@ -211,7 +205,11 @@ geocoder.geocode( { 'address': address}, function(results, status) {
 					$("#forecast3").html(htmlString);
 				}
 			}
-		}
+		});
+		
+		// var forecast = function(data) {
+
+		// }
 
 		var infoWindow = new google.maps.InfoWindow({
 	        content: '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>'

@@ -45,7 +45,8 @@ geocoder.geocode( { 'address': address}, function(results, status) {
   }
   var marker = new google.maps.Marker({
       position: results[0].geometry.location,
-      map: map
+      map: map,
+      //dragable:true
       });
   var infowindow = new google.maps.InfoWindow({
         content: 'Too Tasty!!'

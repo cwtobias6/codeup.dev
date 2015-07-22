@@ -27,39 +27,34 @@ if(color === "red") {
 
 if(color === "red") {   
     console.log("Red rover red rover.")
+}  else if (color === "orange") {
+    console.log("Orange you glad you got me?!");
+}  else if (color === "yellow") {
+    console.log("Mellow Yellow");
+}  else if (color === "green") {
+    console.log("The grass is always greener on the other side");
+}  else if (color === "blue") {
+    console.log("Sunday Blues");
+}  else{
+    console.log("the computer selected indigo or violet");
 }
-    else if (color === "orange") {
-        console.log("Orange you glad you got me?!")
-    };
-    else if (color === "yellow") {
-        console.log("Mellow Yellow")
-    };
-    else if (color === "green") {
-        console.log("The grass is always greener on the other side")
-    };
-    else if (color === "blue") {
-        console.log("Sunday Blues")
-    };
-        else{
-            console.log("the computer selected indigo or violet")
-        };
 
 
 // TODO: Have a final else that will catch indigo and violet.
 // TODO: In the else, log: I do not know anything by that color.
 
 if(color === "red") {   
-    console.log("Red rover red rover.")
+    console.log("Red rover red rover.");
 }  else if (color === "orange") {
-    console.log("Orange you glad you got me?!")
+    console.log("Orange you glad you got me?!");
 }  else if (color === "yellow") {
-    console.log("Mellow Yellow")
+    console.log("Mellow Yellow");
 }  else if (color === "green") {
-    console.log("The grass is always greener on the other side")
+    console.log("The grass is always greener on the other side");
 }  else if (color === "blue") {
-    console.log("Sunday Blues")
+    console.log("Sunday Blues");
 }  else{
-    console.log("I do not know anything by that color")
+    console.log("I do not know anything by that color");
 }
 
 

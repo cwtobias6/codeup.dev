@@ -31,6 +31,7 @@ if(!empty($_POST)) {
 		<input type="password" name="password" placeholder="Enter Password"/>
      	<button>SUBMIT</button>
 
+
 	</form>
 
 </body>

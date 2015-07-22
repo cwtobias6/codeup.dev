@@ -1,9 +1,34 @@
 <?php
 
-$adjective = ["Hubristic","Insidious","Loquacious","Nefarious","Parsimonious","Pernicious","Sagacious","Voluble","Voracious","Spasmodic"];
-$nouns = ["chair", "pancake", "statue", "unicorn", "rainbows", "lasers", "gnomes", "bunny", "dragons", "baby"];
-$randomAdjective = mt_rand(0,count($adjective) - 1);
-$randomNoun = mt_rand(0,count($nouns) - 1);
+function randomAdj () {
+	$adjective = ["Hubristic","Insidious","Loquacious","Nefarious","Parsimonious","Pernicious","Sagacious","Voluble","Voracious","Spasmodic"];
+	$randomAdjective = mt_rand(0,count($adjective) - 1);
+
+
+	return $adjective[$randomAdjective]; 
+
+}
+
+function randomNouns () {
+	$nouns = ["chair", "pancake", "statue", "unicorn", "rainbows", "lasers", "gnomes", "bunny", "dragons", "baby"];
+	$randomNoun = mt_rand(0,count($nouns) - 1);
+	
+	return $nouns[$randomNoun];
+}
+
+function pageController()
+{
+
+    $data = [];
+
+    $data['firstName'] = randomAdj();
+    $data['lastName'] = randomNouns();
+
+    return $data;    
+}
+
+extract(pageController());
+
 ?>
 
 <!DOCTYPE html>
@@ -20,10 +45,9 @@ $randomNoun = mt_rand(0,count($nouns) - 1);
 <body>
 
 	<h1>Random Name Generator</h1>
-	<h2>First: <?php echo $adjective[$randomAdjective]; ?> </h2>
-		<p></p>
-	<h2>Last: <?php echo $adjective[$randomNoun]; ?></h2>
-		<p></p>
+	<h2>First: <?= $firstName; ?> </h2>
+	<h2>Last: <?= $lastName; ?></h2>
+
 
 </body>
 </html>
