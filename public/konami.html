@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Konami Code</title>
+</head>
+<body>
+    <h1>Konami Code</h1>
+		<p>Please type something into this form:</p>
+		<form>
+		    <input type="text" id="textfield" name="textfield" placeholder="Konami Code Here"/>
+		</form>
+
+    <script src="/js/jquery.js"></script>
+    <script>
+        "use strict";
+
+        $(document).keyup(function(event){
+        	console.log(event.keyCode);
+        });
+ 
+ 		var konamiCode = [38,38,40,40,37,39,37,39,66,65,13];
+ 		var index = 0;
+ 		var lastKeyGood = true; 
+		$(document).ready(function() {
+	            $(document).keydown(function(event) {
+	            	if((event.keyCode === konamiCode[index]) && (lastKeyGood) && (event.keyCode === konamiCode[10])) {
+	                	alert('You have added 30 lives!');
+	            	} else if ((event.keyCode === konamiCode[index]) && (lastKeyGood)) {
+	            				index++;
+	            	} else {
+	            		lastKeyGood = false;
+	            		index = 0;
+	            	}
+	            });
+	        });
+
+
+
+    </script>
+</body>
+</html>

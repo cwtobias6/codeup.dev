@@ -9,14 +9,16 @@ class Auth
 	
 	public static function attempt($username, $password)
 	{
-		if((escape($username) === "guest") && (escape(password_verify($password, Auth::$password)) === "password")) {
+		if(escape($username) === "guest" && password_verify(escape($password), self::$password)) {
 			$_SESSION["loggedinuser"] = $username;
 			$log = new Log();
 			$log->info("User $username logged in.");
+			return true;
 			
 		} else {
 			$log = new Log();
 			$log->info("User $username failed to log in!");
+			return false;
 		}
 
 

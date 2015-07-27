@@ -1,12 +1,16 @@
 <?php
+require_once "functions.php";
+require_once "../Auth.php";
+require_once "../Input.php";
 session_start();
+var_dump($_POST);
+var_dump($_SESSION);
+
 
 if(!isset($_SESSION["loggedinuser"])) {
 	header("Location:/login.php");
 	exit();
-} else{
-
-}
+} 
 
 
 

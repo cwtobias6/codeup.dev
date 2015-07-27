@@ -1,0 +1,35 @@
+<html>
+<head>
+	<title>Practice</title>
+</head>
+<body>
+	<h1>JavaScript Practice</h1>
+
+<script type="text/javascript">
+
+function LetterCapitalize(str) {
+	var wordsArray = str.split(" ");
+	var empty = "";
+   	for(var i = 0; i < wordsArray.length;i++){
+   		var split = wordsArray[i].split("");
+   		var capital = split.shift().toUpperCase();
+   		split.unshift(capital);
+   		var whole = split.join("");
+   		empty += " " + whole;
+  
+   	}
+
+   return empty; 
+}
+
+console.log(LetterCapitalize("hello guys what is good"));
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
