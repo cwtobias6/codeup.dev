@@ -5,16 +5,18 @@ require_once "../db_connect.php";
 require_once "functions.php";
 require_once "../Input.php";
 
+//button classes
 $next = "btn btn-default";
 $previous = "btn btn-default";
 
+//form input variables
 $formName = (Input::has('name')) ? Input::get('name'):'';
 $formLocation = (Input::has('location')) ? Input::get('location'):'';
 $formDate = (Input::has('date_established')) ? Input::get('date_established'):'';
 $formArea = (Input::has('area_in_acres')) ? Input::get('area_in_acres'):'';
 $formDescription = (Input::has('description')) ? Input::get('description'):'';
 
-
+//binds input data to national_parks database
 if(!empty($formName) && !empty($formLocation) && !empty($formDate) && !empty($formArea) && !empty($formDescription)) {
 	
 	$stmt = $dbc->prepare('INSERT INTO national_parks(name,location,date_established,area_in_acres,description) VALUES (:name,:location,:date_established,:area_in_acres,:description)');
@@ -26,14 +28,15 @@ if(!empty($formName) && !empty($formLocation) && !empty($formDate) && !empty($fo
     $stmt->bindValue(':description', $formDescription,PDO::PARAM_STR);
     
     $stmt->execute();
-
-    echo "hello";
 } 
 
 
+//limits the number of parks per page to 4
 $parkLength = $dbc->query('SELECT COUNT(*) FROM national_parks')->fetchColumn();
 $lastPage = ceil($parkLength / 4);
 
+
+//brings user to page 1
 if(Input::has('page')) {
 	$page = Input::get('page');
 } else {
@@ -52,20 +55,11 @@ if ($page >= $lastPage) {
 	$next = "invisible";
 }
 
-
-//change to prepare statement
+//prepare statement 
 $math = (($page - 1) * 4);
-$statement = $dbc->query('SELECT * FROM national_parks LIMIT 4 OFFSET ' . $math);
+$statement = $dbc->prepare('SELECT * FROM national_parks LIMIT 4 OFFSET ' . $math);
+$statement->execute();
 $parks = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-
-
-// print_r($parkLength);
-// var_dump(($parks));
-
-
 
 ?>
 
