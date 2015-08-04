@@ -55,11 +55,18 @@ if ($page >= $lastPage) {
 	$next = "invisible";
 }
 
-//prepare statement 
+//prepare statement that prevents sql injection  
 $math = (($page - 1) * 4);
-$statement = $dbc->prepare('SELECT * FROM national_parks LIMIT 4 OFFSET ' . $math);
+$statement = $dbc->prepare('SELECT * FROM national_parks LIMIT 4 OFFSET :math ');
+$statement->bindValue(':math',$math,PDO::PARAM_INT);
 $statement->execute();
 $parks = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+// //ability to delete park by id number
+// $deleteSql = 'DELETE FROM national_parks WHERE id = :id';
+// $deleteStmt = $dbc->prepare($deleteSql);
+// $deleteStmt->bindValue(':id',Input::get('id')PDO::PARAM_INT);
+// $deleteStmt->execute();
 
 ?>
 
@@ -74,25 +81,36 @@ $parks = $statement->fetchAll(PDO::FETCH_ASSOC);
 			margin-left: auto;
 		}
 		.table-bordered {
-			width:900px;
+			margin-top: 10px;
+			width:80%;
 			padding:10px;
 			text-align: center;
 			margin-right: auto;
 			margin-left: auto;
 
 		}
+		tr:hover {
+  			background-color: #c3e6e5;
+  		}
 		td {
 			padding: 10px;
 		}
+		td:hover {
+			font-weight: bold;
+		}
+
 		th {
 			text-align: center;
 			padding: 10px;
+			text-shadow: 1px 1px 1px #555555;
+			font-size: 20px;
 		}
 		a:hover {
 			color:red;
 		}
 		.btns {
-			padding:10px;
+			margin-top: 20px;
+			margin-bottom: 20px;
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -100,22 +118,31 @@ $parks = $statement->fetchAll(PDO::FETCH_ASSOC);
 			margin-right: auto;
 			margin-left: auto;
 			text-align: center;
+			text-shadow: 1px 1px 0px #000000;
 		}
 		body {
 			text-align: center;
 		}
-		forms {
-			text-align: left;
+		.description {
+			margin-top: 20px;
 		}
+		.search {
+			padding-bottom: 300px;
+			padding-top: 50px;
+		}
+		h2 {
+			text-shadow: 1px 1px 0px #000000;
+		}
+
 	</style>
 
 </head>
 <body>
 
+	<h1>NATIONAL PARK DATA</h1>
 	<div class="continer">
 		<table class="table-bordered">
 				<thead>
-					<h1>NATIONAL PARK DATA</h1>
 					<tr>
 						<th>Name</th>
 						<th>Location</th>
@@ -131,25 +158,30 @@ $parks = $statement->fetchAll(PDO::FETCH_ASSOC);
 							<td><?=$park['location']?></td>
 							<td><?=$park['date_established']?></td>
 							<td><?=number_format($park['area_in_acres'])?></td>
-							<td><?=$park['description']?></td>
+							<td class="description"><?=$park['description']?></td>
 						</tr>
 					<? endforeach; ?>
 				</tbody>
 			</table>
+
 		<div class="btns">
-			<button class="<?= $previous ?>"><a href="/national_parks.php?page=<?= $page -1 ?>">Previous</a></button>
-	    	<button class="<?= $next ?>"><a href="/national_parks.php?page=<?= $page +1 ?>">Next</a></button>
+			<button class="<?= $previous ?>"><a href="/national_parks.php?page=<?= $page -1 ?> btn-lg">Previous</a></button>
+	    	<button class="<?= $next ?>"><a href="/national_parks.php?page=<?= $page +1 ?> btn-lg">Next</a></button>
 		</div>
-		<div class="forms">
-			<form method="POST">
-				<input type="text" name="name" required="required" placeholder="Enter Park Name">
-				<input type="text" name="location" required="required" placeholder="Enter Location">
-				<input type="text" name="date_established" required="required" placeholder="Enter Year Established">
-				<input type="text" name="area_in_acres" required="required" placeholder="Enter Area (acres)">
-				<input type="textarea" name="description" required="required" placeholder="Enter Description">
-				<button type="submit">Send</button>
-			</form>
-			<br>
+		<div class="search">
+			<h2>Add A New Park</h2>
+			<div class="forms">
+				<form method="POST">
+					<input type="text" name="name" required="required" placeholder="Enter Park Name">
+					<input type="text" name="location" required="required" placeholder="Enter Location">
+					<input type="text" name="date_established" required="required" placeholder="Enter Year Established">
+					<input type="text" name="area_in_acres" required="required" placeholder="Enter Area (acres)">
+					<br>
+					<textarea name="description" required="required" placeholder="Enter Description" class="description"></textarea>
+					<br>
+					<button type="submit" class="btn-lg">Send</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </body>
