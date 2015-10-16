@@ -11,6 +11,8 @@ class Log
 		$newDay = date("Y-m-d");
 		$this->filename = $prefix . "-" . $newDay . ".log";
 		$this->handle = fopen($this->filename, 'a');
+
+		//$this->setFilename($prefix);
 	}
 
 	

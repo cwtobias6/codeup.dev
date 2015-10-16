@@ -38,35 +38,99 @@ var_dump($_SESSION['songs']);
 <html>
 <head>
 	<title>Songs Inventory</title>
+	<style type="text/css">
+	#container {
+		height:70%;
+		width:70%;
+		margin-left: auto;
+		margin-right: auto;
+		border:6px ridge white;
+		text-align: center;
+		box-shadow: 5px 5px 5px 5px #777777;
+	}
+	td:hover {
+		text-transform: uppercase;
+
+	}
+	table {
+		/*border:1px solid black;*/
+		width:50%;
+		height: 50%;
+		margin-left: auto;
+		margin-right: auto;
+		padding:10px;
+	}
+	tbody {
+		text-align: center;
+	}
+
+	#form {
+		width: 50%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+	#clear {
+		width:50%;
+		height: 50%;
+		margin-left: auto;
+		margin-right: auto;
+		padding:20px;
+	}
+	button:hover {
+		
+	}
+	h1 {
+		font-family: cursive;
+		font-weight: bold;
+	}
+	tr {
+		border:1px solid black;
+	}
+	td {
+		border:1px solid black;
+	}
+	a:hover {
+		color:blue;
+		font-size: 10px;
+	}
+
+
+
+	</style>
 </head>
 <body>
-	<h1>Songs Inventory</h1>
-	<form method="POST">
-		<input type='text'name='title' placeholder='Enter Song Title'>
-		<input type='text'name='artist' placeholder='Enter Artist Name'>
-		<button>Submit</button>
-	</form>
-	<table>
-		<thead>
-			<tr>
-				<th></th>
-				<th>Song Title</th>
-				<th>Song Artist</th>
-			</tr>
-		</thead>
-		<tbody>
-			<? foreach($_SESSION['songs'] as $key => $newSongs): ?>
+	<div id="container">
+		<h1>Songs Inventory</h1>
+		<div id="form">
+				<form method="POST">
+					<input type='text'name='title' placeholder='Enter Song Title'>
+					<input type='text'name='artist' placeholder='Enter Artist Name'>
+					<button>Submit</button>
+		</div>
+		</form>
+		<table>
+			<thead>
 				<tr>
-				<td><a href="/show.php?song=<?=$key?>">Entry:</a></td>
-				
-				<td><?=$newSongs['title']?></td>
-				<td><?=$newSongs['artist']?></td>
+					<th>Song Links</th>
+					<th>Song Title</th>
+					<th>Song Artist</th>
 				</tr>
+			</thead>
+			<tbody>
+				<? foreach($_SESSION['songs'] as $key => $newSongs): ?>
+					<tr>
+					<td><a href="/show.php?song=<?=$key?>"><button>Link To:</button></a></td>
+					<td><?=$newSongs['title']?></td>
+					<td><?=$newSongs['artist']?></td>
+					</tr>
 
-			<? endforeach; ?>
-		</tbody>
-	</table>
-
-	
+				<? endforeach; ?>
+			</tbody>
+		</table>
+		<div id="clear">
+		<a href="/clearall.php"><button>Clear All</button></a>
+		</div>
+	</div>
 </body>
 </html>

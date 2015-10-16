@@ -44,7 +44,7 @@ class Auth
 
 	public static function logout()
 	{
-		endsession();
+		endSession();
 	}
 
 

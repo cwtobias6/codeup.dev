@@ -2,6 +2,40 @@
 
 class Input
 {
+
+
+    public static function getString($key) 
+    {
+        $value = static::get($key);
+
+            if(!isset($value)) {
+                throw new Exception('$key must be set!');
+
+            }
+            if(!is_string($value)){
+                throw new DomainException("{$value} is not a string");
+
+                if((!is_string($value)) && is_numeric($min) && is_numeric($max)) {
+                    throw new invalidArgumentException("{$value} must be a string!");
+                }
+            }   
+
+            return $value = trim($value);
+    }
+
+    public static function getNumber($key)
+    {
+        $value = str_replace(',','',static::get($key));
+
+            if(!isset($value)) {
+                throw new Exception("{$value} must be set!");
+            }
+            if(!is_numeric($value)) {
+                throw new DomainException("{$value} must be a number");
+            }
+
+            return $value = trim($value);
+    }
     /**
      * Check if a given value was passed in the request
      *
@@ -13,7 +47,7 @@ class Input
         if(isset($_REQUEST[$key])) {
             return true;
         } else {
-            return false;
+            throw new OutOfRangeException("{$key} was not found");
         }
     }
 
@@ -27,7 +61,7 @@ class Input
     public static function get($key, $default = null)
     {
         if(isset($_REQUEST[$key])) {
-            return $_REQUEST[$key];
+            return htmlspecialchars(strip_tags($_REQUEST[$key]));
         } else {
             return NULL;
         }

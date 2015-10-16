@@ -9,29 +9,56 @@ require_once "../Input.php";
 $next = "btn btn-default";
 $previous = "btn btn-default";
 
+var_dump($_POST);
 //form input variables
-$formName = (Input::has('name')) ? Input::get('name'):'';
-$formLocation = (Input::has('location')) ? Input::get('location'):'';
-$formDate = (Input::has('date_established')) ? Input::get('date_established'):'';
-$formArea = (Input::has('area_in_acres')) ? Input::get('area_in_acres'):'';
-$formDescription = (Input::has('description')) ? Input::get('description'):'';
 
 //binds input data to national_parks database
-if(!empty($formName) && !empty($formLocation) && !empty($formDate) && !empty($formArea) && !empty($formDescription)) {
+// if(!empty($formName) && !empty($formLocation) && !empty($formDate) && !empty($formArea) && !empty($formDescription)) {
 	
-	$stmt = $dbc->prepare('INSERT INTO national_parks(name,location,date_established,area_in_acres,description) VALUES (:name,:location,:date_established,:area_in_acres,:description)');
 	
-	$stmt->bindValue(':name',$formName,PDO::PARAM_STR);
-    $stmt->bindValue(':location', $formLocation,PDO::PARAM_STR);
-    $stmt->bindValue(':date_established', $formDate,PDO::PARAM_INT);
-    $stmt->bindValue(':area_in_acres', $formArea,PDO::PARAM_STR);
-    $stmt->bindValue(':description', $formDescription,PDO::PARAM_STR);
-    
-    $stmt->execute();
-} 
+	$errors = [];
+	if(!empty($_POST)) {
+		$stmt = $dbc->prepare('INSERT INTO national_parks(name,location,date_established,area_in_acres,description) 
+							   VALUES (:name,:location,:date_established,:area_in_acres,:description)');
+
+		try {
+			$formName = (Input::has('name')) ? Input::getString('name'):NULL;
+			$stmt->bindValue(':name',$formName,PDO::PARAM_STR);
+		} catch (Exception $e) { 
+			$errors[] = 'An error occurred on name: '. $e->getMessage() . PHP_EOL;
+		}
+	    try {
+			$formLocation = (Input::has('location')) ? Input::getString('location'):NULL;
+	    	$stmt->bindValue(':location', $formLocation,PDO::PARAM_STR);
+	    } catch (Exception $e) { 
+	    	$errors[] = 'An error occurred location: ' . $e->getMessage() . PHP_EOL;
+	    }
+	    try {
+			$formDate = (Input::has('date_established')) ? Input::getNumber('date_established'):NULL;
+	    	$stmt->bindValue(':date_established', $formDate,PDO::PARAM_INT);
+	    } catch (Exception $e) { 
+	    	$errors[] = 'An error occurred date established: ' .$e->getMessage() . PHP_EOL;
+	    }
+	    try {
+			$formArea = (Input::has('area_in_acres')) ? Input::getNumber('area_in_acres'):NULL;
+	    	$stmt->bindValue(':area_in_acres', $formArea,PDO::PARAM_STR);
+	    } catch (Exception $e) { 
+	    	$errors[] ='An error occurred area in acres: ' . $e->getMessage() . PHP_EOL;
+	    }
+	    try {
+			$formDescription = (Input::has('description')) ? Input::getString('description'):NULL;
+	    	$stmt->bindValue(':description', $formDescription,PDO::PARAM_STR);
+	    } catch (Exception $e) { 
+	    	$errors[] = 'An error occurred description: ' . $e->getMessage() . PHP_EOL;
+	    }
+	    if(empty($errors)) {
+	    $stmt->execute();
+		}
+	}
+// } 
 
 
-//limits the number of parks per page to 4
+//variables used to disable previous and next buttons on first and last pages
 $parkLength = $dbc->query('SELECT COUNT(*) FROM national_parks')->fetchColumn();
 $lastPage = ceil($parkLength / 4);
 
@@ -102,7 +129,7 @@ $parks = $statement->fetchAll(PDO::FETCH_ASSOC);
 		th {
 			text-align: center;
 			padding: 10px;
-			text-shadow: 1px 1px 1px #555555;
+			font-weight: bold;
 			font-size: 20px;
 		}
 		a:hover {
@@ -138,6 +165,9 @@ $parks = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 </head>
 <body>
+	<? foreach($errors as $error): ?>
+			<p><?= $error; ?></p>
+			<? endforeach; ?>
 
 	<h1>NATIONAL PARK DATA</h1>
 	<div class="continer">
